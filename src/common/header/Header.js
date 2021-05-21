@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
+import PropTypes from 'prop-types';
 
 const customStyles = {
     content: {
@@ -22,14 +23,21 @@ const customStyles = {
 };
 
 //Stateless functional component
+// here textAlign is used to center the login form and not just the texts in it
 const TabContainer = function (props) {
     return (
-        <Typography component="div" style={{ padding: 0, textAlign:'center'}}>
+        <Typography component="div" style={{ padding: 0, textAlign:'center'}}> 
             {props.children}
         </Typography>
     );
 }
 
+//Below is required to make sure that the "Tabcontainer has childrens"
+//This is called type checking 
+//Code will stil run but throws console error if there are no children to tabContainer
+TabContainer.propTypes={
+    children:PropTypes.node.isRequired
+}
 
 class Header extends Component {
 
@@ -77,6 +85,7 @@ class Header extends Component {
                         <Tab label="Register"></Tab>
                     </Tabs>
 
+                    {this.state.value ===0 &&
                     <TabContainer>
                         <FormControl required>
                             <InputLabel htmlFor="Username">Username:</InputLabel>
@@ -88,6 +97,7 @@ class Header extends Component {
                         </FormControl><br/><br/>
                         <Button variant="contained" color="primary">LOGIN</Button>
                     </TabContainer>
+                    }   
                 </Modal>
             </div>
         )
