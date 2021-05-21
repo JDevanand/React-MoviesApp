@@ -18,10 +18,6 @@
     from { transform: scaleX(-1); }
  }
 
- #modal-container{
-    width: max-content;
-    height: max-content;
-
-    margin:auto;
-
+ .tabs {
+    margin-bottom: 20px;
  }
