@@ -17,3 +17,11 @@
  @keyframes app-logo-spin {
     from { transform: scaleX(-1); }
  }
+
+ #modal-container{
+    width: max-content;
+    height: max-content;
+
+    margin:auto;
+
+ }
