@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import ReactDom from 'react-dom';
 import './Home.css';
+import Details from '../../screens/details/Details';
 import Header from "../../common/header/Header";
 import { withStyles } from '@material-ui/core/styles';
 import moviesData from '../../common/movieData';
@@ -81,8 +83,8 @@ class Home extends Component {
         console.log(this.state.artists);
     }
 
-    applyFilterClickHandler = () => {
-
+    movieClickHandler= (movieId)=>{
+        ReactDom.render(<Details movieId={movieId}/>, document.getElementById('root'));
     }
 
     render() {
@@ -106,7 +108,7 @@ class Home extends Component {
                     <div className="left">
                         <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
                             {moviesData.map(movie => (
-                                <GridListTile className="released-movie-grid-item" key={"grid" + movie.id}>
+                                <GridListTile className="released-movie-grid-item" onClick = {()=>this.movieClickHandler(movie.id)} key={"grid" + movie.id}>
                                     <img src={movie.poster_url} className="movie-poster" alt={movie.title} />
                                     <GridListTileBar
                                         title={movie.title}
@@ -116,6 +118,7 @@ class Home extends Component {
                             ))}
                         </GridList>
                     </div>
+
                     <div className="right">
                         <Card>
                             <CardContent>
@@ -185,7 +188,7 @@ class Home extends Component {
                                     />
                                 </FormControl>
                                 <br /><br />
-                                
+
                                 <FormControl className={classes.formControl}>
                                     <Button variant="contained" color="primary">
                                         Apply
