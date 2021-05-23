@@ -135,7 +135,7 @@ class Header extends Component {
 
                 <Modal
                     ariaHideApp={false}
-                    isOpen={this.state.modalIsOpen}
+                    isOpen={this.state.modalIsOpen}  //open or close managed by 'state' property
                     contentLabel="Login"
                     onRequestClose={this.closeModalHandler}
                     style={customStyles}

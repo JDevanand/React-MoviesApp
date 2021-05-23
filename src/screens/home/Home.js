@@ -19,6 +19,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import CheckBox from '@material-ui/core/Checkbox';
 import Textfield from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     root: {
@@ -44,42 +45,46 @@ const styles = theme => ({
         margin: theme.spacing.unit,
         minWidth: 240,
         maxWidth: 240
-     },
-     title: {
+    },
+    title: {
         color: theme.palette.primary.light,
-     }
+    }
 });
 
 
 
 class Home extends Component {
 
-    constructor(){
+    constructor() {
         super();
-        this.state={
-            movieName:"",
-            genres:[],
-            artists:[]
+        this.state = {
+            movieName: "",
+            genres: [],
+            artists: []
         }
     }
 
-    movieNameChangeHandler = event =>{
-        this.setState({movieName:event.target.value});
+    movieNameChangeHandler = event => {
+        this.setState({ movieName: event.target.value });
     }
 
-    genreSelectHandler = event=>{
+    genreSelectHandler = event => {
         const state = this.state.genres;
         console.log(event.target.value);
         state.push(event.target.value);
-        this.setState({genres: state});
+        this.setState({ genres: state });
         console.log(this.state.genres);
     }
 
-    artistSelectHandler=event=>{
-        this.setState({artists: event.target.value});
+    artistSelectHandler = event => {
+        this.setState({ artists: event.target.value });
         console.log(this.state.artists);
     }
-    
+
+    applyFilterClickHandler = () => {
+
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -122,24 +127,24 @@ class Home extends Component {
 
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor='movieName'>Movie Name</InputLabel>
-                                    <Input id='movieName' type="text" onChange={this.movieNameChangeHandler}/>
+                                    <Input id='movieName' type="text" onChange={this.movieNameChangeHandler} />
                                 </FormControl>
 
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor='select-multiple-checkbox-genre'>Genre</InputLabel>
                                     <Select
                                         multiple
-                                        input={<Input id='select-multiple-checkbox-genre'/>}
-                                        renderValue = {selected=>selected.join(',')}
-                                        value ={this.state.genres}
-                                        onChange = {this.genreSelectHandler}
-                                        >
-                                        <MenuItem value='0'>None</MenuItem> 
-                                        {genres.map(genre=>(
-                                        <MenuItem key={genre.id} value ={genre.name} >
-                                            <CheckBox checked={this.state.genres.indexOf(genre.name) > -1}/>
-                                            <ListItemText primary={genre.name}/>                                        
-                                        </MenuItem>
+                                        input={<Input id='select-multiple-checkbox-genre' />}
+                                        renderValue={selected => selected.join(',')}
+                                        value={this.state.genres}
+                                        onChange={this.genreSelectHandler}
+                                    >
+                                        <MenuItem value='0'>None</MenuItem>
+                                        {genres.map(genre => (
+                                            <MenuItem key={genre.id} value={genre.name} >
+                                                <CheckBox checked={this.state.genres.indexOf(genre.name) > -1} />
+                                                <ListItemText primary={genre.name} />
+                                            </MenuItem>
                                         ))}
                                     </Select>
                                 </FormControl>
@@ -148,32 +153,47 @@ class Home extends Component {
                                     <InputLabel htmlFor='select-multiple-checkbox-artist'>Artists</InputLabel>
                                     <Select
                                         multiple
-                                        input={<Input id='select-multiple-checkbox-artist'/>}
-                                        renderValue = {selected=>selected.join(',')}
-                                        value ={this.state.artists}
-                                        onChange = {this.artistSelectHandler}>
+                                        input={<Input id='select-multiple-checkbox-artist' />}
+                                        renderValue={selected => selected.join(',')}
+                                        value={this.state.artists}
+                                        onChange={this.artistSelectHandler}>
                                         <MenuItem value='0'>None</MenuItem>
-                                        {artists.map(artist=>(
-                                        <MenuItem key={artist.id} value ={artist.first_name + " " + artist.last_name}>
-                                            <CheckBox checked={this.state.genres.indexOf(artist.first_name + " " + artist.last_name) > -1}/>
-                                            <ListItemText primary={artist.first_name + " " + artist.last_name}/>                                        
-                                        </MenuItem>
+                                        {artists.map(artist => (
+                                            <MenuItem key={artist.id} value={artist.first_name + " " + artist.last_name}>
+                                                <CheckBox checked={this.state.genres.indexOf(artist.first_name + " " + artist.last_name) > -1} />
+                                                <ListItemText primary={artist.first_name + " " + artist.last_name} />
+                                            </MenuItem>
                                         ))}
                                     </Select>
-                                </FormControl>               
+                                </FormControl>
 
                                 <FormControl className={classes.formControl}>
-                                        <Textfield type='date'
-                                                    id='releaseDateStart'
-                                                    label='Release Date Start'
-                                                    defaultValue=''
-                                                    InputLabelProps={{shrink:true}}
-                                        />                                
-                                </FormControl>                
+                                    <Textfield type='date'
+                                        id='releaseDateStart'
+                                        label='Release Date Start'
+                                        defaultValue=''
+                                        InputLabelProps={{ shrink: true }}
+                                    />
+                                </FormControl>
 
+                                <FormControl className={classes.formControl}>
+                                    <Textfield type='date'
+                                        id='releaseDateEnd'
+                                        label='Release Date End'
+                                        defaultValue=''
+                                        InputLabelProps={{ shrink: true }}
+                                    />
+                                </FormControl>
+                                <br /><br />
+                                
+                                <FormControl className={classes.formControl}>
+                                    <Button variant="contained" color="primary">
+                                        Apply
+                                   </Button>
+                                </FormControl>
 
                             </CardContent>
-                        </Card>            
+                        </Card>
                     </div>
                 </div>
 
