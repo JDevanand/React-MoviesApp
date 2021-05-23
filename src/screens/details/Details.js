@@ -5,6 +5,9 @@ import Header from '../../common/header/Header';
 import moviesData from '../../common/movieData';
 import Typography from '@material-ui/core/Typography';
 import YouTube from 'react-youtube';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 import Home from '../home/Home';
 
@@ -28,10 +31,10 @@ class Details extends Component {
         console.log(this.state);
     }
 
-    backtohomeHandler=()=>{
+    backtohomeHandler = () => {
         ReactDom.render(<Home />, document.getElementById('root'));
     }
-    
+
     _onReady(event) {
         // access to player in all event handlers via event.target
         event.target.pauseVideo();
@@ -39,11 +42,11 @@ class Details extends Component {
 
     render() {
         let movie = this.state.movie;
-        const opts={
-            height:'300', 
+        const opts = {
+            height: '300',
             width: '700',
-            playerVars:{
-                autoplay:1
+            playerVars: {
+                autoplay: 1
             }
         }
 
@@ -78,11 +81,11 @@ class Details extends Component {
                         </div>
                         <div>
                             <Typography><span className='bold'>Rating:</span>{movie.critics_rating}</Typography>
-                        </div>                        
+                        </div>
                         <div className='marginTop16'>
                             <Typography>
                                 <span className='bold'>Plot:</span>
-                                <span>(<a href={movie.wiki_url}>Wiki Link</a>){movie.storyline}</span>                                
+                                <span>(<a href={movie.wiki_url}>Wiki Link</a>){movie.storyline}</span>
                             </Typography>
                         </div>
                         <div className='trailerContainer'>
@@ -91,16 +94,35 @@ class Details extends Component {
                             </Typography>
                             <YouTube
                                 videoId={movie.trailer_url.split('?v=')[1]}
-                                opts ={opts}
+                                opts={opts}
                                 onReady={this._onReady}
 
-                                />
+                            />
                         </div>
 
                     </div>
 
-                    <div className='rightDetails'>
-
+                    <div className='rightDetails'>                        
+                        <div className="bold marginBottom16 marginTop16">
+                            <Typography>
+                                <span className="bold">Artists:</span>
+                            </Typography>
+                        </div>
+                        <div className="paddingRight">
+                            <GridList cellHeight={160} cols={2}>
+                                {movie.artists != null && movie.artists.map(artist => (
+                                    <GridListTile
+                                        className="gridTile"
+                                        onClick={() => this.artistClickHandler(artist.wiki_url)}
+                                        key={artist.id}>
+                                        <img src={artist.profile_url} alt={artist.first_name + " " + artist.last_name} />
+                                        <GridListTileBar
+                                            title={artist.first_name + " " + artist.last_name}
+                                        />
+                                    </GridListTile>
+                                ))}
+                            </GridList>
+                        </div>
                     </div>
                 </div>
             </div>
